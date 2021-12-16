@@ -104,7 +104,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Сохранить маркер экземпляра в глобальной переменной
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 510, 510, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, 520, 520, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -266,8 +266,8 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_TIMER:
     {
         TCHAR buf[50];
-        _stprintf_s(buf, _T("Отмена(%d)"), timer);
-        SetDlgItemText(hDlg, IDCANCEL, buf);
+        _stprintf_s(buf, _T("%d"), timer);
+        SetDlgItemText(hDlg, IDC_STATIC1234, buf);
         timer--;
         if (timer < 0)
         {
@@ -281,15 +281,6 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hDlg, &ps);
 
-        HBRUSH hBrush = CreateSolidBrush(RGB(localSettings.pnR, localSettings.pnG, localSettings.pnB));
-        SelectObject(hdc,hBrush);
-        Rectangle(hdc, 80, 25, 293, 45);
-
-        hBrush = CreateSolidBrush(RGB(localSettings.brR, localSettings.brG, localSettings.brB));
-        SelectObject(hdc, hBrush);
-        Rectangle(hdc, 80, 142, 293, 162);
-
-
         SetDlgItemInt(hDlg, IDC_P_R, localSettings.pnR,0);
         SetDlgItemInt(hDlg, IDC_P_G, localSettings.pnG,0);
         SetDlgItemInt(hDlg, IDC_P_B, localSettings.pnB,0);
@@ -298,8 +289,6 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         SetDlgItemInt(hDlg, IDC_BR_G, localSettings.brG, 0);
         SetDlgItemInt(hDlg, IDC_BR_B, localSettings.brB, 0);
 
-      
-        DeleteObject(hBrush);
         EndPaint(hDlg, &ps);
     }
         break;
