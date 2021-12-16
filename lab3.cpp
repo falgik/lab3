@@ -170,22 +170,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             TextOut(hdc, 400, 10, globalSettings.text, _countof(globalSettings.text));  
 
-
             std::wstring buf;
 
-            buf += std::to_wstring( globalSettings.dtD);
-            buf += L" ";
-            buf += std::to_wstring( globalSettings.dtM);
-            buf += L" ";
-            buf += std::to_wstring( globalSettings.dtY);
-            
-
-            
+            buf += std::to_wstring( globalSettings.dtD + 1);
+            buf += L".";
+            buf += std::to_wstring( globalSettings.dtM + 1);
+            buf += L".";
+            buf += std::to_wstring( globalSettings.dtY + 1950);
             
             TextOut(hdc, 10, 10, buf.c_str(), buf.size());
-
-
-            
 
             DeleteObject(br);
             DeleteObject(pn);
