@@ -104,7 +104,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Сохранить маркер экземпляра в глобальной переменной
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 520, 520, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -168,7 +168,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             drawCircle(hdc, 450 / scale, 400 / scale, 50 / scale);
             drawCircle(hdc, 50 / scale, 400 / scale, 50 / scale);
 
-            TextOut(hdc, 400, 10, globalSettings.text, _countof(globalSettings.text));  
+            SetBkMode(hdc, TRANSPARENT);
+            TextOut(hdc, 10, 10, globalSettings.text, _countof(globalSettings.text));  
 
             std::wstring buf;
 
@@ -176,9 +177,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             buf += L".";
             buf += std::to_wstring( globalSettings.dtM + 1);
             buf += L".";
-            buf += std::to_wstring( globalSettings.dtY + 1950);
+            buf += std::to_wstring( globalSettings.dtY + 1900);
             
-            TextOut(hdc, 10, 10, buf.c_str(), buf.size());
+            TextOut(hdc, 10, 30, buf.c_str(), buf.size());
 
             DeleteObject(br);
             DeleteObject(pn);
@@ -232,7 +233,7 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         CheckRadioButton(hDlg, IDC_RADIO1, IDC_RADIO3, IDC_RADIO1 + localSettings.scale);
         SendDlgItemMessage(hDlg, IDC_CHECK1, BM_SETCHECK, localSettings.isAuthor, 0);
 
-        for (int i = 1950; i < 2021; i++)
+        for (int i = 1900; i < 2022; i++)
         {
             TCHAR buf[50];
             _stprintf_s(buf, TEXT("%d"), i);
